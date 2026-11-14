@@ -4,4 +4,25 @@
   --color-primary: #1E2A4A;
   --color-accent: #F97362;
   --color-surface: #F8FAFC;
+  --color-foreground: #1E2A4A;
+  --color-border: #E2E8F0;
+  --color-paper: #FFFFFF;
+  --color-status: #15803D;
 }
+
+html { scroll-padding-top: 10rem; }
+body { font-family: 'Avenir Next', 'Segoe UI', sans-serif; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+.hero-grid {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 12%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-status); flex-shrink: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .status-dot { animation: dispatch-pulse 2s ease-out infinite; }
+  @keyframes dispatch-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-status) 45%, transparent); }
+    100% { box-shadow: 0 0 0 7px transparent; }
+  }
+}
+

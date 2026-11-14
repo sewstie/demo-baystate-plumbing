@@ -1,0 +1,30 @@
+---
+import { Flame, Phone, Wrench } from 'lucide-react';
+import type { Site } from '@/schemas/site';
+interface Props { business: Site['businessInfo']; content: Site['navbar']; callLabel: string; tel: string }
+const { business: b, content: n, callLabel, tel } = Astro.props;
+---
+<div class="bg-primary px-4 py-1.5 text-center text-xs text-paper">
+  <span class="inline-flex items-center gap-2">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span>{n.dispatchLabel} • {n.arrivalLabel} {b.responseTime} {n.locationPrefix} {b.city}</span>
+  </span>
+</div>
+<nav aria-label={n.label} class="sticky top-0 z-50 border-b border-border bg-paper/90 backdrop-blur-md">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 px-4 py-3">
+    <a href="#" class="flex min-h-11 min-w-0 flex-1 items-center gap-2 lg:flex-none">
+      <span class="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-paper" aria-hidden="true">
+        <Wrench size={23} />
+        <Flame size={14} className="absolute bottom-1 right-1 text-accent" />
+      </span>
+      <span class="max-w-40 text-sm font-extrabold leading-tight sm:max-w-none sm:text-base">{b.name}</span>
+    </a>
+    <ul class="order-3 mt-2 flex w-full flex-wrap justify-between gap-x-3 border-t border-border pt-1 lg:order-none lg:mt-0 lg:w-auto lg:gap-5 lg:border-0 lg:pt-0">
+      {n.links.map((link) => <li><a href={link.href} class="inline-flex min-h-11 items-center text-sm font-semibold hover:underline">{link.label}</a></li>)}
+    </ul>
+    <a href={tel} class="inline-flex min-h-11 items-center gap-2 rounded-lg bg-accent px-3 py-2 text-sm font-bold text-primary">
+      <Phone size={16} aria-hidden="true" />
+      <span>{callLabel} <span class="hidden sm:inline">{b.phone}</span></span>
+    </a>
+  </div>
+</nav>

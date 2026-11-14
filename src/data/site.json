@@ -12,6 +12,45 @@
     "rating": "4.9",
     "reviewCount": 328
   },
+  "navbar": {
+    "dispatchLabel": "24/7 Emergency Dispatch",
+    "arrivalLabel": "Average Arrival:",
+    "locationPrefix": "in",
+    "label": "Main navigation",
+    "links": [
+      { "label": "Services", "href": "#services" },
+      { "label": "Price Estimator", "href": "#estimate" },
+      { "label": "Service Areas", "href": "#service-areas" },
+      { "label": "Reviews", "href": "#reviews" }
+    ]
+  },
+  "hero": {
+    "heading": "Fast, Upfront Plumbing & Heating Repair in Worcester — Without Surprise Bills.",
+    "subheadline": "A burst pipe or cold house cannot wait. Get a local plumbing and heating team, a clear price before work begins, and repairs built for New England homes.",
+    "ratingLabel": "★ Google Rated",
+    "reviewsLabel": "Local Reviews",
+    "estimateLabel": "Get Instant Estimate ↓",
+    "trustItems": ["Licensed & Insured", "Flat-Rate Upfront Pricing", "2-Year Labor Warranty"],
+    "dispatchTitle": "Dispatch Guarantee",
+    "availability": "Technicians available in Worcester County",
+    "availabilityNote": "Sample availability — not a live dispatch feed. Call to confirm coverage and arrival time.",
+    "arrivalLabel": "Average arrival",
+    "location": "Worcester County, MA",
+    "contactTitle": "Tell us what needs fixing.",
+    "contactNote": "Tap to text or call the dispatch desk. Demo contact details; not a live service."
+  },
+  "ui": {
+    "callLabel": "Call",
+    "textLabel": "Text dispatch",
+    "servicesTitle": "Flat-Rate Services",
+    "areasTitle": "Service Areas",
+    "reviewsTitle": "Reviews",
+    "faqTitle": "FAQ",
+    "starsLabel": "out of 5 stars",
+    "estimateTitle": "Instant price guide",
+    "estimateNote": "Illustrative ranges, not a binding quote. Your exact flat rate is confirmed before work begins.",
+    "priceSuffix": "+"
+  },
   "services": [
     {
       "name": "Burst Pipe & Leak Repair",

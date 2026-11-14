@@ -16,6 +16,21 @@ export const siteSchema = z.object({
     rating: z.string().regex(/^[1-5](\.\d)?$/),
     reviewCount: z.number().int().nonnegative(),
   }),
+  navbar: z.object({
+    dispatchLabel: text, arrivalLabel: text, locationPrefix: text, label: text,
+    links: z.array(z.object({ label: text, href: z.string().regex(/^#[a-z-]+$/) })).min(1),
+  }),
+  hero: z.object({
+    heading: text, subheadline: text, ratingLabel: text, reviewsLabel: text,
+    estimateLabel: text, trustItems: z.array(text).length(3),
+    dispatchTitle: text, availability: text, availabilityNote: text,
+    arrivalLabel: text, location: text, contactTitle: text, contactNote: text,
+  }),
+  ui: z.object({
+    callLabel: text, textLabel: text, servicesTitle: text, areasTitle: text,
+    reviewsTitle: text, faqTitle: text, starsLabel: text,
+    estimateTitle: text, estimateNote: text, priceSuffix: text,
+  }),
   services: z.array(
     z
       .object({
