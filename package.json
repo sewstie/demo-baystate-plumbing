@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "check": "astro check && tsc --noEmit",
     "check:slop": "node scripts/check-slop.mjs",
-    "verify": "npm run check:slop && npm run check && npm run build"
+    "verify": "npm run check:slop && npm run check && npm run build",
+    "save": "npm run verify && git add -A && git commit -m"
   },
   "keywords": [],
   "author": "",
@@ -30,7 +31,6 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@astrojs/vercel": "^11.0.21",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "typescript": "^6.0.3"

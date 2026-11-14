@@ -1,0 +1,102 @@
+{
+  "businessInfo": {
+    "name": "BayState Plumbing & HVAC",
+    "demoNotice": "Demo website — fictional business, sample reviews and illustrative pricing. License, ratings, response times, financing and warranties are not verified. Not a live service provider.",
+    "tagline": "24/7 emergency plumbing, heating & cooling for Worcester County. Flat-rate pricing, no surprises.",
+    "description": "Licensed Worcester, MA plumbers and HVAC techs on call 24/7. Burst pipes, water heaters, drain jetting, boiler tune-ups and sump pumps at upfront flat rates.",
+    "city": "Worcester",
+    "state": "MA",
+    "phone": "(508) 555-0194",
+    "licenseNumber": "MA Master Plumber #18492",
+    "responseTime": "Under 45 Mins",
+    "rating": "4.9",
+    "reviewCount": 328
+  },
+  "services": [
+    {
+      "name": "Burst Pipe & Leak Repair",
+      "description": "We locate the leak, shut it down and repair copper, PEX or cast iron before water damage spreads.",
+      "baseMin": 149,
+      "baseMax": 650,
+      "duration": "1–3 hrs"
+    },
+    {
+      "name": "Water Heater Repair & Install",
+      "description": "Same-day repair or replacement of gas, electric and tankless water heaters, old tank hauled away.",
+      "baseMin": 189,
+      "baseMax": 2400,
+      "duration": "2–4 hrs"
+    },
+    {
+      "name": "Main Drain Hydro-Jetting",
+      "description": "High-pressure jetting clears roots, grease and scale from your main line, with a camera inspection after.",
+      "baseMin": 175,
+      "baseMax": 595,
+      "duration": "1–2 hrs"
+    },
+    {
+      "name": "Boiler & Furnace Tune-Up",
+      "description": "Combustion test, cleaning and safety check so your heat makes it through a New England winter.",
+      "baseMin": 129,
+      "baseMax": 249,
+      "duration": "60–90 mins"
+    },
+    {
+      "name": "Sump Pump Replacement",
+      "description": "New pump, check valve and optional battery backup to keep your basement dry in spring thaw.",
+      "baseMin": 225,
+      "baseMax": 850,
+      "duration": "1–2 hrs"
+    },
+    {
+      "name": "Frozen Pipe Thawing",
+      "description": "Safe electric thawing with no open flame, plus insulation advice so the line does not freeze again.",
+      "baseMin": 165,
+      "baseMax": 480,
+      "duration": "1–2 hrs"
+    }
+  ],
+  "serviceAreas": ["Worcester", "Shrewsbury", "Holden", "Auburn", "Millbury", "Grafton", "Westborough", "Leicester"],
+  "reviews": [
+    {
+      "author": "Maureen D.",
+      "neighborhood": "Tatnuck Square, Worcester",
+      "rating": 5,
+      "text": "A pipe burst in our basement at 2 a.m. in January. They were at the door in 35 minutes, had the water off and the line repaired before sunrise, and charged exactly the price quoted on the phone."
+    },
+    {
+      "author": "Carlos R.",
+      "neighborhood": "Shrewsbury St, Worcester",
+      "rating": 5,
+      "text": "Our restaurant's main drain backed up on a Friday afternoon. BayState hydro-jetted the line and showed us the camera footage. We were open for dinner service that night."
+    },
+    {
+      "author": "Priya S.",
+      "neighborhood": "Burncoat, Worcester",
+      "rating": 5,
+      "text": "The 20-year-old water heater in our triple-decker finally quit. They quoted a flat rate, installed the new one the same day and hauled the old tank away. No upsell, no mess."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Do you charge overtime for nights, weekends or holidays?",
+      "answer": "No. Our flat rates are the same at 2 a.m. on a Sunday as they are on a Tuesday afternoon. You approve the price before any work starts."
+    },
+    {
+      "question": "Do you offer financing?",
+      "answer": "Yes. Water heater, boiler and furnace replacements over $1,000 qualify for 0% financing for 12 months, subject to credit approval. Mass Save HEAT Loan paperwork is handled for you."
+    },
+    {
+      "question": "What warranty comes with your work?",
+      "answer": "Every repair carries a 2-year parts and labor warranty. New equipment also keeps its full manufacturer warranty, which we register on your behalf."
+    },
+    {
+      "question": "Are estimates free?",
+      "answer": "Yes. Estimates for replacements and installs are free. For repairs, the diagnostic fee is waived when you go ahead with the work."
+    },
+    {
+      "question": "Are you licensed and insured?",
+      "answer": "Yes. We hold a Massachusetts Master Plumber license, our techs are licensed for gas and oil heat, and we carry general liability and workers' compensation insurance."
+    }
+  ]
+}
