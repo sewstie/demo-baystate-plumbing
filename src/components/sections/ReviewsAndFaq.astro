@@ -1,0 +1,79 @@
+---
+import { ChevronDown, Phone, ShieldCheck, Star } from 'lucide-react';
+import type { Site } from '@/schemas/site';
+
+interface Props {
+  reviews: Site['reviews'];
+  faqs: Site['faqs'];
+  business: Site['businessInfo'];
+  ui: Site['ui'];
+  tel: string;
+}
+
+const { reviews, faqs, business: b, ui, tel } = Astro.props;
+---
+
+<section id="reviews" aria-labelledby="reviews-heading" class="scroll-mt-20">
+  <div class="mb-10 text-center">
+    <h2 id="reviews-heading" class="text-3xl font-extrabold tracking-tight sm:text-4xl">{ui.reviewsTitle}</h2>
+    <p class="mx-auto mt-2 max-w-xl text-sm text-primary/75 sm:text-base">Real feedback from verified homeowners across Worcester County.</p>
+  </div>
+  <div class="grid gap-6 md:grid-cols-3">
+    {reviews.map((r) => (
+      <figure class="flex flex-col justify-between rounded-xl border border-border bg-paper p-6 shadow-sm">
+        <div>
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex text-amber-500" aria-label={`${r.rating} ${ui.starsLabel}`}>
+              {Array.from({ length: r.rating }).map(() => (
+                <Star size={16} fill="currentColor" stroke="none" aria-hidden="true" />
+              ))}
+            </div>
+            <span class="rounded-full bg-surface px-2.5 py-0.5 text-xs font-semibold text-primary/70">{r.neighborhood}</span>
+          </div>
+          <blockquote class="mt-4 text-sm leading-relaxed text-foreground">"{r.text}"</blockquote>
+        </div>
+        <figcaption class="mt-5 text-sm font-bold text-foreground">— {r.author}</figcaption>
+      </figure>
+    ))}
+  </div>
+</section>
+
+<section id="faq" aria-labelledby="faq-heading" class="scroll-mt-20">
+  <div class="mb-8 text-center">
+    <h2 id="faq-heading" class="text-3xl font-extrabold tracking-tight sm:text-4xl">{ui.faqTitle}</h2>
+    <p class="mx-auto mt-2 max-w-xl text-sm text-primary/75 sm:text-base">Clear answers to frequent questions about our pricing and service.</p>
+  </div>
+  <div class="mx-auto max-w-3xl divide-y divide-border rounded-2xl border border-border bg-paper px-6 shadow-sm">
+    {faqs.map((f) => (
+      <details class="group py-4">
+        <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between text-base font-bold text-foreground transition focus:outline-none">
+          <span class="pr-4">{f.question}</span>
+          <ChevronDown size={18} className="shrink-0 transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
+        </summary>
+        <p class="mt-2 text-sm leading-relaxed text-primary/75">{f.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<footer class="mt-16 rounded-2xl border border-border bg-primary p-8 text-paper shadow-xl sm:p-10">
+  <div class="flex flex-col items-center justify-between gap-6 text-center sm:flex-row sm:text-left">
+    <div>
+      <h3 class="text-xl font-bold">{b.name}</h3>
+      <p class="mt-1 text-sm text-paper/75">24/7 Emergency Dispatch across Worcester County, MA</p>
+      <p class="mt-2 flex items-center justify-center gap-1.5 text-xs text-paper/80 sm:justify-start">
+        <ShieldCheck size={15} aria-hidden="true" /> {b.licenseNumber}
+      </p>
+    </div>
+    <div class="flex flex-col items-center gap-2 sm:items-end">
+      <a href={tel} class="inline-flex min-h-11 items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-primary transition hover:opacity-90">
+        <Phone size={16} aria-hidden="true" /> {b.phone}
+      </a>
+      <span class="text-xs text-paper/70">Response time: {b.responseTime}</span>
+    </div>
+  </div>
+</footer>
+
+<a href={tel} class="fixed inset-x-0 bottom-0 z-50 flex min-h-[48px] items-center justify-center gap-2 bg-accent text-base font-bold text-primary shadow-lg md:hidden">
+  <Phone size={18} aria-hidden="true" /> {ui.callLabel} {b.phone}
+</a>

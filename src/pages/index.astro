@@ -2,20 +2,17 @@
 import '@/styles/global.css';
 import Navbar from '@/components/sections/Navbar.astro';
 import Hero from '@/components/sections/Hero.astro';
+import ServicesAndAreas from '@/components/sections/ServicesAndAreas.astro';
+import ReviewsAndFaq from '@/components/sections/ReviewsAndFaq.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import RepairEstimator from '@/components/islands/RepairEstimator';
 import siteJson from '@/data/site.json';
 import { siteSchema } from '@/schemas/site';
+
 interface Props {}
 const { businessInfo: b, navbar, hero, ui, services, serviceAreas, reviews, faqs } = siteSchema.parse(siteJson);
 const tel = `tel:+1${b.phone.replace(/\D/g, '')}`;
 const url = new URL(import.meta.env.BASE_URL, Astro.site).href;
-const jsonLd = {
-  '@context': 'https://schema.org', '@type': ['Plumber', 'HVACBusiness'],
-  name: b.name, description: b.description, telephone: b.phone, url,
-  address: { '@type': 'PostalAddress', addressLocality: b.city, addressRegion: b.state, addressCountry: 'US' },
-  areaServed: serviceAreas.map((name) => ({ '@type': 'City', name })),
-};
-const card = 'rounded-lg border border-border bg-paper p-5';
-const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 ---
 <!doctype html>
 <html lang="en">
@@ -25,59 +22,25 @@ const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: '
     <title>{`${b.name} | ${b.city}, ${b.state}`}</title>
     <meta name="description" content={b.description} />
     <link rel="canonical" href={url} />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
+    <JsonLd business={b} serviceAreas={serviceAreas} url={url} />
   </head>
   <body class="bg-surface pb-14 text-foreground md:pb-0">
-    <aside class="mx-auto max-w-6xl px-4 py-3 text-xs leading-relaxed">{b.demoNotice}</aside>
+    <aside class="mx-auto max-w-6xl px-4 py-3 text-xs leading-relaxed text-primary/70">{b.demoNotice}</aside>
     <Navbar business={b} content={navbar} callLabel={ui.callLabel} tel={tel} />
     <main>
       <Hero business={b} content={hero} ui={ui} tel={tel} />
-      <div class="mx-auto max-w-6xl space-y-16 px-4 py-16">
-        <section id="services" aria-labelledby="services-heading">
-          <h2 id="services-heading" class="text-2xl font-bold">{ui.servicesTitle}</h2>
-          <ul class="mt-6 grid gap-4 md:grid-cols-3">
-            {services.map((s) => (
-              <li class={card}>
-                <h3 class="font-bold">{s.name}</h3>
-                <p class="mt-1 text-sm text-primary/70">{s.description}</p>
-                <p class="mt-3 font-bold">{currency.format(s.baseMin)}{ui.priceSuffix} <span class="font-normal text-primary/70">· {s.duration}</span></p>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section id="estimate" aria-labelledby="estimate-heading">
-          <h2 id="estimate-heading" class="text-2xl font-bold">{ui.estimateTitle}</h2>
-          <p class="mt-2 text-primary/70">{ui.estimateNote}</p>
-          <dl class="mt-6 divide-y divide-border rounded-lg border border-border bg-paper px-5">
-            {services.map((s) => <div class="flex flex-wrap justify-between gap-2 py-4"><dt>{s.name}</dt><dd class="font-bold">{currency.format(s.baseMin)}–{currency.format(s.baseMax)}</dd></div>)}
-          </dl>
-        </section>
-        <section id="service-areas" aria-labelledby="areas-heading">
-          <h2 id="areas-heading" class="text-2xl font-bold">{ui.areasTitle}</h2>
-          <ul class="mt-6 flex flex-wrap gap-2">
-            {serviceAreas.map((area) => <li class="rounded-full border border-border px-4 py-2">{area}</li>)}
-          </ul>
-        </section>
-        <section id="reviews" aria-labelledby="reviews-heading">
-          <h2 id="reviews-heading" class="text-2xl font-bold">{ui.reviewsTitle}</h2>
-          <div class="mt-6 grid gap-4 md:grid-cols-3">
-            {reviews.map((r) => (
-              <figure class={card}>
-                <p><span aria-hidden="true">{'★'.repeat(r.rating)}</span><span class="sr-only">{r.rating} {ui.starsLabel}</span></p>
-                <blockquote class="mt-2">{r.text}</blockquote>
-                <figcaption class="mt-3 text-sm font-bold">{r.author} · {r.neighborhood}</figcaption>
-              </figure>
-            ))}
+      <div class="mx-auto max-w-6xl space-y-20 px-4 py-16">
+        <ServicesAndAreas services={services} serviceAreas={serviceAreas} business={b} ui={ui} />
+        <section id="price-estimator" class="scroll-mt-20" aria-labelledby="estimator-heading">
+          <div id="estimate"></div>
+          <div class="mb-8 text-center">
+            <h2 id="estimator-heading" class="text-3xl font-extrabold tracking-tight sm:text-4xl">{ui.estimateTitle}</h2>
+            <p class="mx-auto mt-2 max-w-2xl text-sm text-primary/75 sm:text-base">{ui.estimateNote}</p>
           </div>
+          <RepairEstimator client:visible services={services} phone={b.phone} />
         </section>
-        <section aria-labelledby="faq-heading">
-          <h2 id="faq-heading" class="text-2xl font-bold">{ui.faqTitle}</h2>
-          <div class="mt-4">
-            {faqs.map((f) => <details class="border-b border-border"><summary class="min-h-11 cursor-pointer py-3 font-bold">{f.question}</summary><p class="pb-4 text-primary/70">{f.answer}</p></details>)}
-          </div>
-        </section>
+        <ReviewsAndFaq reviews={reviews} faqs={faqs} business={b} ui={ui} tel={tel} />
       </div>
     </main>
-    <a href={tel} class="fixed inset-x-0 bottom-0 z-50 flex min-h-14 items-center justify-center bg-accent text-lg font-bold text-primary md:hidden">{ui.callLabel} {b.phone}</a>
   </body>
 </html>

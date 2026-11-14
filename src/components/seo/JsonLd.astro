@@ -1,0 +1,29 @@
+---
+import type { Site } from '@/schemas/site';
+
+interface Props {
+  business: Site['businessInfo'];
+  serviceAreas: Site['serviceAreas'];
+  url: string;
+}
+
+const { business: b, serviceAreas, url } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Plumber', 'HVACBusiness'],
+  name: b.name,
+  description: b.description,
+  telephone: b.phone,
+  url,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: b.city,
+    addressRegion: b.state,
+    addressCountry: 'US',
+  },
+  areaServed: serviceAreas.map((name) => ({ '@type': 'City', name })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
