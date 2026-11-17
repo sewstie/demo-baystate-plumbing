@@ -5,7 +5,7 @@ import geometry from '@/data/service-map.json';
 import type { Site } from '@/schemas/site';
 interface Props { site: Site }
 const { site: { services, serviceAreas, serviceMap, ui, copy: c } } = Astro.props;
-const icons = [Droplets, Wrench, Waves, Flame, Pipette, ThermometerSnowflake];
+const icons = [Droplets, Wrench, Wrench, Waves, Flame, Pipette, ThermometerSnowflake];
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: c.currency, maximumFractionDigits: 0 });
 ---
 <section id="services" class="container section" aria-labelledby="services-heading">
