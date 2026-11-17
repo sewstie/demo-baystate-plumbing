@@ -3,6 +3,16 @@ import { z } from 'zod';
 const text = z.string().min(1);
 
 export const siteSchema = z.object({
+  demoBanner: z.boolean(),
+  banner: z.object({ text, shortText: text, href: z.url(), dismissLabel: text }),
+  hours: z.object({ timeZone: z.literal('America/New_York'), available: text, closed: text,
+    days: z.array(z.object({ open: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/), close: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/) }).refine(d => d.open < d.close).nullable()).length(7) }),
+  emergency: z.object({ title: text, note: text, steps: z.array(text).length(3), call: text }),
+  photo: z.object({ alt: text, caption: text, source: z.url() }),
+  booking: z.object({ title: text, name: text, contact: text, day: text, window: text,
+    windows: z.array(text).length(2), submit: text, success: text, notice: text, note: text,
+    emailTitle: text, ownerEmail: z.email(), ownerLabels: z.array(text).length(6),
+    calendar: text, calendarTitle: text, back: text }),
   businessInfo: z.object({
     name: text,
     emergencyAvailable: z.boolean(),

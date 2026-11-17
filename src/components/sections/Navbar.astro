@@ -1,17 +1,21 @@
 ---
-import { ArrowUpRight, Droplets, Phone } from 'lucide-react';
+import { ArrowUpRight, Droplets, Phone, Menu } from 'lucide-react';
+import DemoBanner from '../DemoBanner.astro';
 import type { Site } from '@/schemas/site';
 interface Props { site: Site; tel: string }
 const { site: { businessInfo: b, navbar: n, hero, copy: c }, tel } = Astro.props;
 ---
 <header class="site-header">
+  {Astro.props.site.demoBanner && <DemoBanner banner={Astro.props.site.banner} />}
   <div class="dispatch-bar"><div class="container dispatch-inner">
     <span class="availability"><span class:list={['status-dot', { offline: !b.emergencyAvailable }]}></span>{b.emergencyAvailable ? hero.availability : c.offlineLabel}</span>
     <a href={tel}>{b.phone}<ArrowUpRight size={15} aria-hidden="true" /></a>
   </div></div>
   <nav class="container navigation" aria-label={n.label}>
-    <a class="brand" href={import.meta.env.BASE_URL} aria-label={b.name}><span class="brand-mark"><Droplets size={27} aria-hidden="true" /></span><span><strong>{c.brandName}</strong><small>{c.brandDetail}</small></span></a>
+    <a class="brand" href={import.meta.env.BASE_URL}><span class="brand-mark"><Droplets size={27} aria-hidden="true" /></span><span><strong>{c.brandName}</strong><small class="desktop-brand-detail">{c.brandDetail}</small><small class="mobile-emergency">{n.dispatchLabel}</small></span></a>
     <div class="nav-links">{n.links.map(link => <a href={link.href}>{link.label}</a>)}</div>
     <a class="button button-small" href={tel} aria-label={`${c.brandName} ${b.phone}`}><Phone size={16} aria-hidden="true" /><span>{b.phone}</span></a>
+    <button class="menu-toggle" popovertarget="mobile-menu" aria-label="Open navigation"><Menu size={24} aria-hidden="true" /></button>
+    <nav id="mobile-menu" popover aria-label="Mobile navigation">{n.links.map(link => <a href={link.href}>{link.label}</a>)}</nav>
   </nav>
 </header>

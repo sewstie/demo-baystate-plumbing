@@ -14,7 +14,7 @@ const { site: { reviews, faqs, businessInfo: b, ui, copy: c }, tel } = Astro.pro
 </section>
 <footer>
   <div class="container footer-call"><div><h2>{c.footerTitle}</h2><p>{c.footerNote}</p></div><a class="button button-light" href={tel}><Phone size={19} aria-hidden="true" />{b.phone}</a></div>
-  <div class="container footer-bottom"><span><Droplets size={20} aria-hidden="true" />{b.name}</span><span>{b.licenseNumber}</span><a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/admin`}>{c.adminLabel}</a></div>
+  <div class="container footer-bottom"><span><Droplets size={20} aria-hidden="true" />{b.name}</span><span>{b.licenseNumber}</span></div>
   <p class="container demo-notice">{b.demoNotice}</p>
 </footer>
 <div class="mobile-dock"><a class="button" href={tel}><Phone size={18} aria-hidden="true" />{ui.callLabel} {b.phone}</a><a href="#estimate">{ui.estimateTitle.split('.')[0]}<ArrowUpRight size={18} aria-hidden="true" /></a></div>
