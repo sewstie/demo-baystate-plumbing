@@ -1,9 +1,10 @@
 ---
 import { ArrowUpRight, Clock, Droplets, Flame, Waves, Wrench, ThermometerSnowflake, Pipette, MapPin } from 'lucide-react';
 import CountyMap from '../CountyMap.astro';
+import geometry from '@/data/service-map.json';
 import type { Site } from '@/schemas/site';
 interface Props { site: Site }
-const { site: { services, serviceAreas, ui, copy: c } } = Astro.props;
+const { site: { services, serviceAreas, serviceMap, ui, copy: c } } = Astro.props;
 const icons = [Droplets, Wrench, Waves, Flame, Pipette, ThermometerSnowflake];
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: c.currency, maximumFractionDigits: 0 });
 ---
@@ -17,7 +18,16 @@ const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: c
   </article>; })}</div>
 </section>
 <section id="service-areas" class="area-section">
-  <div class="container area-layout"><div><MapPin size={28} strokeWidth={1.5} aria-hidden="true" /><h2>{ui.areasTitle}</h2><p>{c.areasNote}</p></div>
-    <CountyMap towns={serviceAreas} title={ui.areasTitle} />
+  <div class="container area-layout"><div><MapPin size={28} strokeWidth={1.5} aria-hidden="true" /><h2>{ui.areasTitle}</h2><p>{c.areasNote}</p>
+    <figure class="state-map">
+      <figcaption>{serviceMap.stateTitle}</figcaption>
+      <svg viewBox="0 0 560 280" role="img" aria-label={serviceMap.stateDescription}>
+        <path class="map-land" d={geometry.state} />
+        <path class="map-highlight" d={geometry.countyInset} />
+      </svg>
+      <p class="map-key"><span aria-hidden="true"></span>{serviceMap.countyTitle}</p>
+    </figure>
+  </div>
+    <CountyMap towns={serviceAreas} map={serviceMap} />
   </div>
 </section>

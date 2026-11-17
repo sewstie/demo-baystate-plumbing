@@ -20,7 +20,20 @@ html { scroll-padding-top: 0; } [id] { scroll-margin-top: var(--header-h); }
 .service { border-radius: 0; } .service h3 { font-size: 26px; } .service > p { font-size: 16px; }
 .service-meta > span { background: var(--color-surface); padding: 6px 9px; border-radius: 4px; font-size: 14px; }
 .service-link, .nav-links a, .text-link, .button, .trust-list, .license, .eyebrow, .estimate-steps li, .issue-options label, .urgency-options small { font-size: 14px; }
-.service-meta { flex-wrap: wrap; } .county-map { width: 100%; overflow: visible; } .county-map text { font: 14px Manrope, sans-serif; fill: var(--color-primary); paint-order: stroke; stroke: #f4f6fa; stroke-width: 4px; stroke-linejoin: round; }
+.service-meta { flex-wrap: wrap; }
+.service-map { margin: 0; min-width: 0; }
+.service-map figcaption, .state-map figcaption { font-size: 18px; color: var(--color-primary); font-weight: 600; }
+.county-map { display: block; width: 100%; height: auto; }
+.county-map text { font: 24px Manrope, sans-serif; fill: var(--color-primary); paint-order: stroke; stroke: var(--color-surface); stroke-width: 5px; stroke-linejoin: round; }
+.map-land { fill: var(--color-paper); stroke: var(--color-primary); stroke-width: 1.5; stroke-linejoin: round; }
+.map-highlight { fill: var(--color-primary); stroke: var(--color-primary); }
+.map-leader { fill: none; stroke: var(--color-primary); stroke-width: 1; }
+.map-dot { fill: var(--color-primary); stroke: var(--color-paper); stroke-width: 2; }
+.state-map { margin: 28px 0 0; max-width: 380px; }
+.state-map svg { display: block; width: 100%; height: auto; margin-block: 8px; }
+.map-key { display: flex; align-items: center; gap: 8px; }
+.map-key span { width: 12px; height: 12px; background: var(--color-primary); }
+.area-layout .map-note { max-width: none; font-size: 13px; }
 .menu-toggle { display: none; } .mobile-emergency { display: none; }
 #mobile-menu { margin: 0; inset: var(--header-h) 20px auto auto; background: white; color: var(--color-primary); border: 1px solid var(--color-border); padding: 16px; min-width: 230px; }
 #mobile-menu a { display: flex; align-items: center; min-height: 48px; padding: 8px 16px; }
@@ -36,6 +49,6 @@ html { scroll-padding-top: 0; } [id] { scroll-margin-top: var(--header-h); }
   .emergency-panel p, .emergency-panel ol, .section-heading p, .area-layout p, blockquote, .faq-layout > div > p, .faq-list details p, .estimate-layout > div > p:not(.eyebrow), .estimate-result > p, .estimate-result .estimate-disclaimer { font-size: 16px; }
   .estimate-steps { flex-wrap: wrap; gap: 10px; } .issue-options { grid-template-columns: 1fr; } legend { font-size: 26px; }
   summary, .service-link, figcaption strong, figcaption span, .mobile-dock .button, .mobile-dock > a:last-child, .footer-bottom, footer .demo-notice { font-size: 14px; }
-  .county-map text { font-size: 28px; } .area-layout { gap: 0; } .mobile-dock > a:last-child { max-width: 100px; }
+  .county-map text { font-size: 32px; } .area-layout { gap: 32px; } .mobile-dock > a:last-child { max-width: 100px; }
 }
 @media(prefers-reduced-motion:reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

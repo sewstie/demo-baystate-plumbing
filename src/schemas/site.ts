@@ -63,6 +63,11 @@ export const siteSchema = z.object({
       })
       .refine((s) => s.baseMax >= s.baseMin, { message: 'baseMax must be >= baseMin' }),
   ).min(1),
+  serviceMap: z.object({
+    stateTitle: text, stateDescription: text, countyTitle: text, note: text,
+    points: z.record(text, z.object({ x: z.number().min(0).max(560), y: z.number().min(0).max(520),
+      labelX: z.union([z.literal(12), z.literal(548)]), labelY: z.number().min(32).max(500) })),
+  }),
   serviceAreas: z.array(text).min(1),
   reviews: z.array(
     z.object({
