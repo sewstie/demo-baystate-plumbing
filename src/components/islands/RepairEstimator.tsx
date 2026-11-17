@@ -1,110 +1,25 @@
-import { useState } from 'react';
-import { Phone, ShieldCheck } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowRight, ArrowLeft, Check, Phone } from 'lucide-react';
 import type { Site } from '@/schemas/site';
-
-interface Props {
-  services: Site['services'];
-  phone: string;
-}
-
-export default function RepairEstimator({ services, phone }: Props) {
+interface Props { services: Site['services']; phone: string; copy: Site['copy'] }
+export default function RepairEstimator({ services, phone, copy: c }: Props) {
+  const [step, setStep] = useState(0);
   const [selected, setSelected] = useState(0);
-  const [isEmergency, setIsEmergency] = useState(false);
-  const [phoneInput, setPhoneInput] = useState('');
-  const [confirmed, setConfirmed] = useState(false);
-
-  const active = services[selected] ?? services[0];
-  const fee = isEmergency ? 45 : 0;
-  const min = (active?.baseMin ?? 0) + fee;
-  const max = (active?.baseMax ?? 0) + fee;
-  const telHref = `tel:+1${phone.replace(/\D/g, '')}`;
-
-  return (
-    <div className="mx-auto max-w-3xl rounded-2xl border border-border bg-paper p-6 shadow-lg sm:p-8">
-      <fieldset className="mb-6">
-        <legend className="text-sm font-bold text-foreground">Step 1: Select Service Issue</legend>
-        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {services.map((s, idx) => (
-            <label
-              key={s.name}
-              className={`flex min-h-11 cursor-pointer flex-col justify-center rounded-lg border px-3 py-2 text-left text-xs font-semibold transition ${
-                selected === idx ? 'border-primary bg-primary text-paper' : 'border-border bg-surface text-foreground hover:border-primary/50'
-              }`}
-            >
-              <input type="radio" name="service" checked={selected === idx} onChange={() => setSelected(idx)} className="sr-only" />
-              <span className="truncate">{s.name}</span>
-              <span className="text-[11px] opacity-75">{s.duration}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset className="mb-6">
-        <legend className="text-sm font-bold text-foreground">Step 2: Urgency</legend>
-        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <button
-            type="button"
-            onClick={() => setIsEmergency(false)}
-            className={`min-h-11 rounded-lg border px-4 py-2 text-sm font-semibold transition ${
-              !isEmergency ? 'border-primary bg-primary text-paper' : 'border-border bg-surface text-foreground hover:border-primary/50'
-            }`}
-          >
-            Standard Scheduled <span className={!isEmergency ? 'text-accent' : 'text-status font-bold'}>(Save $45)</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsEmergency(true)}
-            className={`min-h-11 rounded-lg border px-4 py-2 text-sm font-semibold transition ${
-              isEmergency ? 'border-primary bg-primary text-paper' : 'border-border bg-surface text-foreground hover:border-primary/50'
-            }`}
-          >
-            24/7 Same-Day Emergency
-          </button>
-        </div>
-      </fieldset>
-
-      <div className="rounded-xl border border-border bg-surface p-5 sm:p-6">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-          <div>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-status/10 px-3 py-1 text-xs font-bold text-status">
-              <ShieldCheck size={15} aria-hidden="true" /> $0 Dispatch Fee With Repair
-            </span>
-            <h3 className="mt-2 text-lg font-bold">{active?.name}</h3>
-          </div>
-          <div className="text-right">
-            <span className="text-xs text-primary/70">Estimated Flat Rate</span>
-            <p className="text-2xl font-extrabold text-foreground sm:text-3xl">${min} – ${max}</p>
-          </div>
-        </div>
-
-        {confirmed ? (
-          <div className="mt-4 rounded-lg bg-status/10 p-4 text-center text-sm font-bold text-status">
-            ✓ Callback requested for {phoneInput}. A technician will contact you shortly!
-          </div>
-        ) : (
-          <form
-            onSubmit={(e) => { e.preventDefault(); if (phoneInput) setConfirmed(true); }}
-            className="mt-4 flex flex-col gap-2 sm:flex-row"
-          >
-            <input
-              type="tel"
-              required
-              pattern="[0-9()+\\- ]{7,}"
-              value={phoneInput}
-              onChange={(e) => setPhoneInput(e.target.value)}
-              placeholder="Enter phone for callback"
-              aria-label="Phone number for callback"
-              className="min-h-11 flex-1 rounded-lg border border-border bg-paper px-3 text-sm text-foreground focus:border-primary focus:outline-none"
-            />
-            <button type="submit" className="min-h-11 rounded-lg bg-primary px-5 text-sm font-bold text-paper transition hover:opacity-90">
-              Request Callback
-            </button>
-            <a href={telHref} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-accent px-5 text-sm font-bold text-primary transition hover:opacity-90">
-              <Phone size={16} aria-hidden="true" /> Call {phone}
-            </a>
-          </form>
-        )}
-      </div>
+  useEffect(() => {
+    const value = Number(new URLSearchParams(window.location.search).get('service'));
+    if (Number.isInteger(value) && value >= 0 && value < services.length) setSelected(value);
+  }, [services.length]);
+  const [emergency, setEmergency] = useState(false);
+  const active = services[selected];
+  const fee = emergency ? c.emergencyFee : 0;
+  const money = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: c.currency, maximumFractionDigits: 0 }).format(amount);
+  return <div className="estimator">
+    <ol className="estimate-steps">{c.steps.map((label, index) => <li key={label} aria-current={step === index ? 'step' : undefined} className={step >= index ? 'active' : ''}><span>{step > index ? <Check size={14} aria-hidden="true" /> : index + 1}</span>{label}</li>)}</ol>
+    <div className="estimate-body" aria-live="polite">
+      {step === 0 && <fieldset><legend>{c.issueTitle}</legend><div className="issue-options">{services.map((service, index) => <label className={selected === index ? 'selected' : ''} key={service.name}><input type="radio" name="service" value={index} checked={selected === index} onChange={() => setSelected(index)} /><span>{service.name}</span></label>)}</div></fieldset>}
+      {step === 1 && <fieldset><legend>{c.urgencyTitle}</legend><div className="urgency-options">{[false, true].map(value => <label className={emergency === value ? 'selected' : ''} key={String(value)}><input type="radio" name="urgency" checked={emergency === value} onChange={() => setEmergency(value)} /><span><strong>{value ? c.emergencyLabel : c.standardLabel}</strong><small>{value ? c.emergencyNote : c.standardNote}</small>{value && <small>{c.feeLabel}: {money(c.emergencyFee)}</small>}</span></label>)}</div></fieldset>}
+      {step === 2 && <div className="estimate-result"><p>{c.rangeLabel}</p><h3>{active.name}</h3><strong className="price-range">{money(active.baseMin + fee)} – {money(active.baseMax + fee)}</strong><p>{emergency ? c.emergencyLabel : c.standardLabel}</p><p className="estimate-disclaimer">{c.rangeNote}</p><a className="button" href={`tel:+1${phone.replace(/\D/g, '')}`}><Phone size={17} aria-hidden="true" />{c.dispatchLabel}</a></div>}
+      <div className="estimate-controls">{step > 0 && <button className="text-link" onClick={() => setStep(step - 1)}><ArrowLeft size={16} aria-hidden="true" />{c.backLabel}</button>}{step < 2 ? <button className="button" onClick={() => setStep(step + 1)}>{step === 0 ? c.nextLabel : c.resultLabel}<ArrowRight size={17} aria-hidden="true" /></button> : <button className="text-link" onClick={() => { setStep(0); setSelected(0); setEmergency(false); }}>{c.restartLabel}</button>}</div>
     </div>
-  );
+  </div>;
 }

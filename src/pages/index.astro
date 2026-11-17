@@ -8,39 +8,32 @@ import JsonLd from '@/components/seo/JsonLd.astro';
 import RepairEstimator from '@/components/islands/RepairEstimator';
 import siteJson from '@/data/site.json';
 import { siteSchema } from '@/schemas/site';
-
 interface Props {}
-const { businessInfo: b, navbar, hero, ui, services, serviceAreas, reviews, faqs } = siteSchema.parse(siteJson);
+const site = siteSchema.parse(siteJson);
+const { businessInfo: b, ui, copy: c } = site;
 const tel = `tel:+1${b.phone.replace(/\D/g, '')}`;
 const url = new URL(import.meta.env.BASE_URL, Astro.site).href;
 ---
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{`${b.name} | ${b.city}, ${b.state}`}</title>
-    <meta name="description" content={b.description} />
+    <meta name="description" content={b.description} /><meta name="theme-color" content="#153fbd" />
     <link rel="canonical" href={url} />
-    <JsonLd business={b} serviceAreas={serviceAreas} url={url} />
+    <JsonLd business={b} serviceAreas={site.serviceAreas} url={url} />
   </head>
-  <body class="bg-surface pb-14 text-foreground md:pb-0">
-    <aside class="mx-auto max-w-6xl px-4 py-3 text-xs leading-relaxed text-primary/70">{b.demoNotice}</aside>
-    <Navbar business={b} content={navbar} callLabel={ui.callLabel} tel={tel} />
-    <main>
-      <Hero business={b} content={hero} ui={ui} tel={tel} />
-      <div class="mx-auto max-w-6xl space-y-20 px-4 py-16">
-        <ServicesAndAreas services={services} serviceAreas={serviceAreas} business={b} ui={ui} />
-        <section id="price-estimator" class="scroll-mt-20" aria-labelledby="estimator-heading">
-          <div id="estimate"></div>
-          <div class="mb-8 text-center">
-            <h2 id="estimator-heading" class="text-3xl font-extrabold tracking-tight sm:text-4xl">{ui.estimateTitle}</h2>
-            <p class="mx-auto mt-2 max-w-2xl text-sm text-primary/75 sm:text-base">{ui.estimateNote}</p>
-          </div>
-          <RepairEstimator client:visible services={services} phone={b.phone} />
-        </section>
-        <ReviewsAndFaq reviews={reviews} faqs={faqs} business={b} ui={ui} tel={tel} />
-      </div>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Navbar site={site} tel={tel} />
+    <main id="main">
+      <Hero site={site} tel={tel} />
+      <section id="estimate" class="estimate-section"><div class="container estimate-layout">
+        <div><p class="eyebrow">{c.estimateBadge}</p><h2>{ui.estimateTitle}</h2><p>{ui.estimateNote}</p><p class="estimate-trust">{c.trustNote}</p></div>
+        <RepairEstimator client:load services={site.services} phone={b.phone} copy={c} />
+      </div></section>
+      <ServicesAndAreas site={site} />
+      <ReviewsAndFaq site={site} tel={tel} />
     </main>
   </body>
 </html>

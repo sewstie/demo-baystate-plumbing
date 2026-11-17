@@ -5,6 +5,7 @@ const text = z.string().min(1);
 export const siteSchema = z.object({
   businessInfo: z.object({
     name: text,
+    emergencyAvailable: z.boolean(),
     demoNotice: text,
     tagline: text,
     description: text,
@@ -31,6 +32,16 @@ export const siteSchema = z.object({
     reviewsTitle: text, faqTitle: text, starsLabel: text,
     estimateTitle: text, estimateNote: text, priceSuffix: text,
   }),
+  copy: z.object({
+    brandName: text, brandDetail: text, heroEyebrow: text, arrivalValue: text, arrivalUnit: text,
+    arrivalNote: text, servicesNote: text, fromLabel: text, serviceLink: text, areasNote: text,
+    reviewsNote: text, faqNote: text, footerTitle: text, footerNote: text, adminLabel: text,
+    offlineLabel: text, estimateBadge: text, steps: z.array(text).length(3), issueTitle: text,
+    urgencyTitle: text, standardLabel: text, standardNote: text, emergencyLabel: text,
+    emergencyNote: text, nextLabel: text, resultLabel: text, backLabel: text, restartLabel: text,
+    rangeLabel: text, rangeNote: text, dispatchLabel: text, feeLabel: text,
+    emergencyFee: z.number().nonnegative(), currency: z.literal('USD'), trustNote: text,
+  }),
   services: z.array(
     z
       .object({
@@ -41,7 +52,7 @@ export const siteSchema = z.object({
         duration: text,
       })
       .refine((s) => s.baseMax >= s.baseMin, { message: 'baseMax must be >= baseMin' }),
-  ),
+  ).min(1),
   serviceAreas: z.array(text).min(1),
   reviews: z.array(
     z.object({

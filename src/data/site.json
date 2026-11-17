@@ -1,14 +1,15 @@
 {
   "businessInfo": {
     "name": "BayState Plumbing & HVAC",
-    "demoNotice": "Demo website — fictional business, sample reviews and illustrative pricing. License, ratings, response times, financing and warranties are not verified. Not a live service provider.",
-    "tagline": "24/7 emergency plumbing, heating & cooling for Worcester County. Flat-rate pricing, no surprises.",
+    "emergencyAvailable": true,
+    "demoNotice": "Demo website. Sample business details, pricing, reviews and availability; not a live service provider.",
+    "tagline": "Plumbing & HVAC",
     "description": "Licensed Worcester, MA plumbers and HVAC techs on call 24/7. Burst pipes, water heaters, drain jetting, boiler tune-ups and sump pumps at upfront flat rates.",
     "city": "Worcester",
     "state": "MA",
     "phone": "(508) 555-0194",
     "licenseNumber": "MA Master Plumber #18492",
-    "responseTime": "Under 45 Mins",
+    "responseTime": "45 minutes",
     "rating": "4.9",
     "reviewCount": 328
   },
@@ -18,38 +19,95 @@
     "locationPrefix": "in",
     "label": "Main navigation",
     "links": [
-      { "label": "Services", "href": "#services" },
-      { "label": "Price Estimator", "href": "#estimate" },
-      { "label": "Service Areas", "href": "#service-areas" },
-      { "label": "Reviews", "href": "#reviews" }
+      {
+        "label": "Services",
+        "href": "#services"
+      },
+      {
+        "label": "Pricing",
+        "href": "#estimate"
+      },
+      {
+        "label": "Our area",
+        "href": "#service-areas"
+      },
+      {
+        "label": "FAQs",
+        "href": "#faq"
+      }
     ]
   },
   "hero": {
-    "heading": "Fast, Upfront Plumbing & Heating Repair in Worcester — Without Surprise Bills.",
-    "subheadline": "A burst pipe or cold house cannot wait. Get a local plumbing and heating team, a clear price before work begins, and repairs built for New England homes.",
+    "heading": "Home comfort.\nWithout the worry.",
+    "subheadline": "Fast, upfront plumbing & heating repair in Worcester. On-site in 45 minutes, without surprise bills.",
     "ratingLabel": "★ Google Rated",
     "reviewsLabel": "Local Reviews",
-    "estimateLabel": "Get Instant Estimate ↓",
-    "trustItems": ["Licensed & Insured", "Flat-Rate Upfront Pricing", "2-Year Labor Warranty"],
-    "dispatchTitle": "Dispatch Guarantee",
-    "availability": "Technicians available in Worcester County",
-    "availabilityNote": "Sample availability — not a live dispatch feed. Call to confirm coverage and arrival time.",
+    "estimateLabel": "Estimate my repair",
+    "trustItems": [
+      "Licensed & insured",
+      "Upfront flat rates",
+      "Local, around the clock"
+    ],
+    "dispatchTitle": "Local help. Ready when you need it.",
+    "availability": "24/7 emergency technicians available",
+    "availabilityNote": "Arrival depends on location and availability. Call to confirm.",
     "arrivalLabel": "Average arrival",
     "location": "Worcester County, MA",
-    "contactTitle": "Tell us what needs fixing.",
-    "contactNote": "Tap to text or call the dispatch desk. Demo contact details; not a live service."
+    "contactTitle": "A clear price. Then we get to work.",
+    "contactNote": "Approve your flat rate before any repair begins."
   },
   "ui": {
     "callLabel": "Call",
     "textLabel": "Text dispatch",
-    "servicesTitle": "Flat-Rate Services",
-    "areasTitle": "Service Areas",
-    "reviewsTitle": "Reviews",
-    "faqTitle": "FAQ",
+    "servicesTitle": "Small leak. Cold house.\nWe’re on it.",
+    "areasTitle": "Your neighborhood.\nOur neighborhood.",
+    "reviewsTitle": "Good work gets around.",
+    "faqTitle": "A little clarity,\nbefore you call.",
     "starsLabel": "out of 5 stars",
-    "estimateTitle": "Instant price guide",
-    "estimateNote": "Illustrative ranges, not a binding quote. Your exact flat rate is confirmed before work begins.",
+    "estimateTitle": "Know the range.\nSkip the guesswork.",
+    "estimateNote": "A few quick choices. An upfront price range. No contact details needed.",
     "priceSuffix": "+"
+  },
+  "copy": {
+    "brandName": "BayState",
+    "brandDetail": "Plumbing & HVAC",
+    "heroEyebrow": "Your local Worcester repair team",
+    "arrivalValue": "45",
+    "arrivalUnit": "min",
+    "arrivalNote": "Target emergency arrival",
+    "servicesNote": "Every repair starts with a clear price. You approve it. We fix it. Simple as that.",
+    "fromLabel": "From",
+    "serviceLink": "Estimate this repair",
+    "areasNote": "Based in Worcester. Close to home when you need us most. Call to confirm service at your address.",
+    "reviewsNote": "Sample stories from our local community.",
+    "faqNote": "Still have a question? A real conversation is one call away.",
+    "footerTitle": "Let’s get your home\nback to normal.",
+    "footerNote": "One call. A local team. A clear plan.",
+    "adminLabel": "Site admin",
+    "offlineLabel": "Call to confirm technician availability",
+    "estimateBadge": "The 30-second price check",
+    "steps": [
+      "Your repair",
+      "Your timing",
+      "Your estimate"
+    ],
+    "issueTitle": "What needs a fix?",
+    "urgencyTitle": "How soon do you need us?",
+    "standardLabel": "Standard scheduled",
+    "standardNote": "Find a time that works for you.",
+    "emergencyLabel": "24/7 emergency",
+    "emergencyNote": "Call now for the next available technician.",
+    "nextLabel": "Choose my timing",
+    "resultLabel": "See my estimate",
+    "backLabel": "Back",
+    "restartLabel": "Start again",
+    "rangeLabel": "Your estimated repair range",
+    "rangeNote": "An estimate, not a binding quote. Your technician confirms the exact flat rate before work starts.",
+    "dispatchLabel": "Call to arrange my repair",
+    "feeLabel": "Emergency dispatch surcharge",
+    "emergencyFee": 45,
+    "currency": "USD",
+    "trustNote": "No payment. No obligation. Just a clearer picture."
   },
   "services": [
     {
@@ -95,7 +153,16 @@
       "duration": "1–2 hrs"
     }
   ],
-  "serviceAreas": ["Worcester", "Shrewsbury", "Holden", "Auburn", "Millbury", "Grafton", "Westborough", "Leicester"],
+  "serviceAreas": [
+    "Worcester",
+    "Shrewsbury",
+    "Holden",
+    "Auburn",
+    "Millbury",
+    "Grafton",
+    "Westborough",
+    "Leicester"
+  ],
   "reviews": [
     {
       "author": "Maureen D.",
@@ -119,7 +186,7 @@
   "faqs": [
     {
       "question": "Do you charge overtime for nights, weekends or holidays?",
-      "answer": "No. Our flat rates are the same at 2 a.m. on a Sunday as they are on a Tuesday afternoon. You approve the price before any work starts."
+      "answer": "Emergency dispatch includes the surcharge shown in the price estimator. We confirm your full flat rate before work starts, including any emergency fee."
     },
     {
       "question": "Do you offer financing?",

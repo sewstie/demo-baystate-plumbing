@@ -1,0 +1,14 @@
+---
+import '@/styles/global.css';
+import '@/styles/admin.css';
+import AdminPanel from '@/components/islands/AdminPanel';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import siteJson from '@/data/site.json';
+import { siteSchema } from '@/schemas/site';
+interface Props {}
+const site = siteSchema.parse(siteJson);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex,nofollow" /><title>Site admin</title><JsonLd business={site.businessInfo} serviceAreas={site.serviceAreas} url={new URL(import.meta.env.BASE_URL, Astro.site).href} /></head>
+<body><main class="admin-shell"><a class="text-link" href={`${base}/`}>Back to site</a><h1>Site admin</h1><p>{site.businessInfo.name}</p><AdminPanel client:load endpoint={`${base}/api/site`} /></main></body></html>
