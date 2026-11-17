@@ -10,7 +10,7 @@ export const siteSchema = z.object({
   emergency: z.object({ title: text, note: text, steps: z.array(text).length(3), call: text }),
   photo: z.object({ alt: text, caption: text, source: z.url() }),
   booking: z.object({ title: text, name: text, contact: text, day: text, window: text,
-    windows: z.array(text).length(2), submit: text, success: text, notice: text, note: text,
+    windows: z.array(text).length(2), windowPlaceholder: text, submittedLabel: text, submit: text, success: text, notice: text, note: text,
     emailTitle: text, ownerEmail: z.email(), ownerLabels: z.array(text).length(6),
     calendar: text, calendarTitle: text, back: text }),
   businessInfo: z.object({
