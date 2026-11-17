@@ -1,22 +1,20 @@
 ---
-import { ArrowUpRight, Check, Phone, ShieldCheck } from 'lucide-react';
+import { Image } from 'astro:assets';
+import technician from '@/assets/technician.jpg';
+import Availability from '../Availability.astro';
+import { ArrowUpRight, Check, Phone } from 'lucide-react';
 import type { Site } from '@/schemas/site';
 interface Props { site: Site; tel: string }
 const { site: { businessInfo: b, hero: h, copy: c, ui }, tel } = Astro.props;
 ---
 <section class="container hero" aria-labelledby="hero-heading">
   <div class="hero-copy">
+    <Availability hours={Astro.props.site.hours} enabled={b.emergencyAvailable} />
     <p class="eyebrow"><span class="small-line"></span>{c.heroEyebrow}</p>
     <h1 id="hero-heading">{h.heading}</h1>
     <p class="hero-description">{h.subheadline}</p>
-    <div class="hero-actions"><a class="button" href={tel}><Phone size={18} aria-hidden="true" />{ui.callLabel} {b.phone}</a><a class="text-link" href="#estimate">{h.estimateLabel}<ArrowUpRight size={19} aria-hidden="true" /></a></div>
+    <div class="hero-actions"><a class="button emergency-button" href={tel}><Phone size={18} aria-hidden="true" />{ui.callLabel} {b.phone}</a><a class="text-link" href="#estimate">{h.estimateLabel}<ArrowUpRight size={19} aria-hidden="true" /></a></div>
     <ul class="trust-list">{h.trustItems.map(item => <li><Check size={15} aria-hidden="true" />{item}</li>)}</ul>
   </div>
-  <aside class="arrival-panel">
-    <div class="arrival-top"><span class="availability"><span class:list={['status-dot', { offline: !b.emergencyAvailable }]}></span>{b.emergencyAvailable ? h.location : c.offlineLabel}</span><ArrowUpRight size={24} aria-hidden="true" /></div>
-    <div class="arrival-number"><span>{c.arrivalValue}</span><span>{c.arrivalUnit}</span></div>
-    <p class="arrival-caption">{c.arrivalNote}</p>
-    <div class="arrival-bottom"><strong>{h.dispatchTitle}</strong><p>{h.availabilityNote}</p></div>
-    <div class="license"><ShieldCheck size={18} aria-hidden="true" />{b.licenseNumber}</div>
-  </aside>
+  <figure class="technician-photo"><Image src={technician} alt={Astro.props.site.photo.alt} widths={[360, 540, 720, 960]} sizes="(max-width: 767px) calc(100vw - 40px), 42vw" width={540} height={650} fit="cover" format="webp" quality={48} loading="eager" fetchpriority="high" /><figcaption>{Astro.props.site.photo.caption}</figcaption></figure>
 </section>

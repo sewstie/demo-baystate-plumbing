@@ -1,0 +1,14 @@
+---
+import type { Site } from '@/schemas/site';
+interface Props { hours: Site['hours']; enabled: boolean }
+const { hours, enabled } = Astro.props;
+---
+<p class="live-pill" data-hours={JSON.stringify(hours)} data-enabled={enabled}><span aria-hidden="true">●</span><span data-label>{hours.closed}</span></p>
+<script>
+  import { availableNow } from '../lib/hours';
+  document.querySelectorAll<HTMLElement>('[data-hours]').forEach(pill => {
+    const hours = JSON.parse(pill.dataset.hours!);
+    const update = () => { pill.querySelector('[data-label]')!.textContent = pill.dataset.enabled === 'true' && availableNow(hours) ? hours.available : hours.closed; };
+    update(); setInterval(update, 60000);
+  });
+</script>

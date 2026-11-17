@@ -1,0 +1,11 @@
+---
+import { Phone } from 'lucide-react';
+import type { Site } from '@/schemas/site';
+interface Props { content: Site['emergency']; tel: string }
+const { content, tel } = Astro.props;
+---
+<section class="emergency-panel container" aria-labelledby="emergency-heading">
+  <div><h2 id="emergency-heading">{content.title}</h2><p>{content.note}</p></div>
+  <ol>{content.steps.map((step, index) => <li><span>{index + 1}</span>{step}</li>)}</ol>
+  <a class="button emergency-button" href={tel}><Phone size={22} aria-hidden="true" />{content.call}</a>
+</section>

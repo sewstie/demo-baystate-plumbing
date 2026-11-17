@@ -1,8 +1,9 @@
 ---
 import { ArrowUpRight, Clock, Droplets, Flame, Waves, Wrench, ThermometerSnowflake, Pipette, MapPin } from 'lucide-react';
+import CountyMap from '../CountyMap.astro';
 import type { Site } from '@/schemas/site';
 interface Props { site: Site }
-const { site: { services, serviceAreas, businessInfo: b, ui, copy: c } } = Astro.props;
+const { site: { services, serviceAreas, ui, copy: c } } = Astro.props;
 const icons = [Droplets, Wrench, Waves, Flame, Pipette, ThermometerSnowflake];
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: c.currency, maximumFractionDigits: 0 });
 ---
@@ -12,11 +13,11 @@ const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: c
     <Icon size={27} strokeWidth={1.5} className="service-icon" aria-hidden="true" />
     <h3>{s.name}</h3><p>{s.description}</p>
     <div class="service-meta"><span>{c.fromLabel} <strong>{currency.format(s.baseMin)}</strong></span><span><Clock size={14} aria-hidden="true" />{s.duration}</span></div>
-    <a class="service-link" href={`?service=${i}#estimate`}>{c.serviceLink}<ArrowUpRight size={18} aria-hidden="true" /></a>
+    <a class="service-link" href="#estimate" data-service={i}>{c.serviceLink}<ArrowUpRight size={18} aria-hidden="true" /></a>
   </article>; })}</div>
 </section>
 <section id="service-areas" class="area-section">
   <div class="container area-layout"><div><MapPin size={28} strokeWidth={1.5} aria-hidden="true" /><h2>{ui.areasTitle}</h2><p>{c.areasNote}</p></div>
-    <div><ul class="towns">{serviceAreas.map(area => <li><MapPin size={15} aria-hidden="true" />{area}</li>)}</ul><p class="area-location">{b.city}, {b.state}</p></div>
+    <CountyMap towns={serviceAreas} title={ui.areasTitle} />
   </div>
 </section>
