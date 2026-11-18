@@ -25,6 +25,7 @@ input[type=radio], input[type=checkbox] { accent-color: var(--color-primary); wi
 @media(max-width: 760px) { .estimate-section { padding-block: 44px; } .estimate-layout { grid-template-columns: 1fr; gap: 28px; } .estimate-layout > div > p:not(.eyebrow) { max-width: none; } .estimate-layout .estimate-trust { margin-top: 14px; } .estimate-body { padding: 20px; } .estimate-steps { padding: 18px 14px; } .estimate-steps li { font-size: 10px; gap: 5px; } .estimate-controls .button { padding-inline: 14px; font-size: 12px; } }
 @media(max-width: 360px) { .issue-options { grid-template-columns: 1fr; } }
 .request-form h3, .request-success h3 { font-size: 30px; margin-bottom: 12px; }
+.request-success h3 { scroll-margin-top: var(--header-h); }
 .request-form label { display: block; font-size: 16px; margin-top: 20px; }
 .request-form input, .request-form select { display: block; width: 100%; min-height: 48px; border: 1px solid var(--color-border); border-radius: 4px; background: white; color: var(--color-foreground); padding: 12px; margin-top: 8px; font-size: 16px; }
 .request-form [role=alert] { color: #a31919; font-size: 14px; }
