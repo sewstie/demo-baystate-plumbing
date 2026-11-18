@@ -13,4 +13,7 @@ Town markers: MassGIS Town and City Halls. Points mark municipal offices, not se
 https://www.mass.gov/info-details/massgis-data-town-and-city-halls
 https://services1.arcgis.com/hGdibHYSPO59RG1h/ArcGIS/rest/services/Town_and_City_Halls/FeatureServer/0
 
-Barlow Condensed 700 and Manrope Regular are self-hosted under their SIL Open Font Licenses in public/fonts.
+Barlow Condensed 700 and Manrope Regular are bundled from src/assets. Their SIL Open Font Licenses remain in public/fonts.
+
+Water heater ranges are illustrative demo estimates, with starting prices supplied in the brief. The installation range covers standard tank replacement, not tankless systems or major code upgrades. Massachusetts pricing context:
+https://www.proplumberscorp.com/article/plumber-cost-massachusetts
