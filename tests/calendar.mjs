@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import { moveDay, moveMonth, monthWeeks, dateLabel } from '../src/lib/calendar.ts';
+assert.equal(moveDay('2026-12-31', 1), '2027-01-01');
+assert.equal(moveDay('2026-03-08', 1), '2026-03-09');
+assert.equal(moveDay('2026-11-01', -1), '2026-10-31');
+assert.equal(moveMonth('2028-01-31', 1), '2028-02-29');
+assert.equal(moveMonth('2026-01-31', 1), '2026-02-28');
+assert.equal(moveMonth('2028-02-29', 12), '2029-02-28');
+assert.equal(moveMonth('2026-01-15', -1), '2025-12-15');
+const weeks = monthWeeks('2026-11-17');
+assert.equal(weeks.length, 6);
+assert(weeks.every(week => week.length === 7));
+assert.equal(new Set(weeks.flat()).size, 42);
+assert.equal(weeks[0][0], '2026-11-01');
+assert.equal(weeks[5][6], '2026-12-12');
+assert.equal(dateLabel('2026-11-17'), 'Tue, Nov 17, 2026');
+console.log('Calendar month boundaries, leap years, DST and date labels passed.');
