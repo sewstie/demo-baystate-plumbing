@@ -52,3 +52,7 @@ html { scroll-padding-top: 0; } [id] { scroll-margin-top: var(--header-h); }
   .county-map text { font-size: 32px; } .area-layout { gap: 32px; } .mobile-dock > a:last-child { max-width: 100px; }
 }
 @media(prefers-reduced-motion:reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+@media(max-width:767px) and (prefers-reduced-motion:no-preference) {
+  .site-header { transition: transform .2s ease; }
+  .site-header.header-hidden:not(:focus-within) { transform: translateY(-100%); }
+}

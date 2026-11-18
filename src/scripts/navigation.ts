@@ -1,6 +1,18 @@
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const header = document.querySelector<HTMLElement>('.site-header');
 if (header) new ResizeObserver(() => document.documentElement.style.setProperty('--header-h', `${header.offsetHeight + 16}px`)).observe(header);
+const mobile = matchMedia('(max-width: 767px)');
+let lastScroll = Math.max(0, scrollY);
+function showHeader() { header?.classList.remove('header-hidden'); lastScroll = Math.max(0, scrollY); }
+mobile.addEventListener('change', showHeader);
+reduced.addEventListener('change', showHeader);
+addEventListener('scroll', () => {
+  const current = Math.max(0, scrollY);
+  if (!header || !mobile.matches || reduced.matches) return showHeader();
+  if (Math.abs(current - lastScroll) < 8 && current > header.offsetHeight) return;
+  header.classList.toggle('header-hidden', current > lastScroll && current > header.offsetHeight && !header.contains(document.activeElement) && !document.querySelector('#mobile-menu:popover-open'));
+  lastScroll = current;
+}, { passive: true });
 function reveal(hash: string, behavior: ScrollBehavior) {
   const target = document.getElementById(decodeURIComponent(hash.slice(1)));
   if (!target) return false;
