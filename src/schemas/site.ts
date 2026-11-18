@@ -11,6 +11,8 @@ export const siteSchema = z.object({
   photo: z.object({ alt: text, caption: text, source: z.url() }),
   booking: z.object({ title: text, name: text, contact: text, day: text, window: text,
     windows: z.array(text).length(2), windowPlaceholder: text, submittedLabel: text, submit: text, success: text, notice: text, note: text,
+    noWindows: text,
+    datePicker: z.object({ placeholder: text, close: text, previous: text, next: text, help: text, earliest: text }),
     emailTitle: text, ownerEmail: z.email(), ownerLabels: z.array(text).length(6),
     calendar: text, calendarTitle: text, back: text }),
   businessInfo: z.object({
