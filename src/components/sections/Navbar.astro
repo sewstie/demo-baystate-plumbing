@@ -1,12 +1,10 @@
 ---
 import { ArrowUpRight, Droplets, Phone, Menu } from 'lucide-react';
-import DemoBanner from '../DemoBanner.astro';
 import type { Site } from '@/schemas/site';
 interface Props { site: Site; tel: string }
 const { site: { businessInfo: b, navbar: n, hero, copy: c }, tel } = Astro.props;
 ---
 <header class="site-header">
-  {Astro.props.site.demoBanner && <DemoBanner banner={Astro.props.site.banner} />}
   <div class="dispatch-bar"><div class="container dispatch-inner">
     <span class="availability"><span class:list={['status-dot', { offline: !b.emergencyAvailable }]}></span>{b.emergencyAvailable ? hero.availability : c.offlineLabel}</span>
     <a href={tel}>{b.phone}<ArrowUpRight size={15} aria-hidden="true" /></a>
