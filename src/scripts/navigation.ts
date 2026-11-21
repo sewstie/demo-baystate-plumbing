@@ -1,6 +1,9 @@
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const header = document.querySelector<HTMLElement>('.site-header');
 if (header) new ResizeObserver(() => document.documentElement.style.setProperty('--header-h', `${header.offsetHeight + 16}px`)).observe(header);
+// The demo banner above the header scrolls away, so open the menu under wherever the header is now.
+const menu = document.getElementById('mobile-menu');
+if (header && menu) menu.addEventListener('beforetoggle', () => { menu.style.top = `${header.getBoundingClientRect().bottom + 16}px`; });
 const mobile = matchMedia('(max-width: 767px)');
 let lastScroll = Math.max(0, scrollY);
 function showHeader() { header?.classList.remove('header-hidden'); lastScroll = Math.max(0, scrollY); }
